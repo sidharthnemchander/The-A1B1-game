@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The A1B1 Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/css/splide.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/js/splide.min.js"></script>
+    <script src="index-backend.js" defer></script>
+</head>
+<body>
+    <h1 id="title">The A1B1 Game</h1>
+    <hr>
+    <br>
+
+    <div class="dash" data-index="0" onclick="focusInput(this)"></div>
+    <div class="dash" data-index="1" onclick="focusInput(this)"> </div>
+    <div class="dash" data-index="2" onclick="focusInput(this)"> </div>
+    <div class="dash" data-index="3" onclick="focusInput(this)"> </div>
+    <div class="dash" data-index="4" onclick="focusInput(this)"> </div>
+
+    <input id="hidden-input" type="text" maxlength="1" style="position: absolute; opacity: 0;" />
+    <div id="game-container">
+        <div id="board"></div>
+        <div id="hints-container"></div>
+        <div id="answer"></div>
+    </div>
+    
+    <div id="error-indicator">
+        <div class="error-circle"></div>
+        <div class="error-circle"></div>
+        <div class="error-circle"></div>
+    </div>
+
+    <div id="game-win-message" class="hidden"></div>
+    <div id="message-box" class="message-box">U sure thats a real word?</div>
+    
+    <div id="game-over-popup" class="hidden">
+        <div class="game-over-content">
+            <p class="message">BETTER LUCK NEXT TIME!</p>
+            <p class="word-label">THE WORD WAS:</p>
+            <p class="word" id="word-display"></p>
+        </div>
+    </div>
+    
+    <button id="help">?</button>
+    
+    <div id="image-slider" class="hidden">
+        <div class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide"><img src="photo1.png" alt="p1">
+                    <div style="font-family: papyrus;">Welcome to the A1B1 game the OBJECTIVE of this game is to GUESS THE HIDDEN WORD</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo2.png" alt="p2">
+                        <div style="font-family: papyrus;">If a letter from the word you have guessed and the hidden word's letter are the SAME LETTER AND SAME POSITION then A1 will be displayed</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo3.png" alt="p3">
+                        <div style="font-family: papyrus;">If a letter from the word you have guessed and the hidden word's letter are the SAME LETTER BUT DIFFERENT POSITION then B1 will be displayed</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo4.png" alt="p4">
+                        <div style="font-family: papyrus;">If NO LETTERS are matching from your word to the hidden word then 0 will be displayed</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo5.png" alt="p5">
+                        <div style="font-family: papyrus;">If A LETTER present in the HIDDEN WORD appears 2 TIMES in YOUR WORD then A1B1 will be displayed. The trick is to evaluate the position of each letter separately.So the "s" in the fifth place triggers A1 and the "S" in the first place triggers B1</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo6.png" alt="p6">
+                        <div style="font-family: papyrus;">Likewise, if A LETTER from your word appears in the HIDDEN WORD TWICE then A1B1 will be displayed</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo7.png" alt="p7" >
+                        <div style="font-family: papyrus;">You also get THREE GUESSES to check the place of the letter which you think might appear in the N'th position of the HIDDEN WORD</div>
+                    </li>
+                    <li class="splide__slide">
+                        <img src="photo8.png" alt="p8">
+                        <div style="font-family: papyrus;">You get 10 normal chances and 3 guesses to find the hidden word. BEST OF LUCK NERD!!</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
