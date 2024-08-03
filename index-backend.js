@@ -1,7 +1,7 @@
 async function fetchRandomWord() {
     const response = await fetch("https://random-word-api.herokuapp.com/word?number=1&length=5");
     const words = await response.json();
-    return words[0].toUpperCase(); // Assuming the API returns an array of words
+    return words[0].toUpperCase(); 
 }
 
 var height = 10;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log("the help button event listener is working");
         if (photoContainer.style.display === 'none' || photoContainer.style.display === '') {
             photoContainer.style.display = 'flex';
-            if (!imageSlider) { // Create a new Splide instance only if it doesn't exist
+            if (!imageSlider) { 
                 imageSlider = new Splide('#image-slider', {
                     type: 'loop',
                     perPage: 1,
@@ -36,13 +36,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                     arrows:false,
                     pagination:false,
                 });
-                imageSlider.mount(); // Mount the new Splide instance
+                imageSlider.mount(); 
             }
         } else {
             photoContainer.style.display = 'none';
             if (imageSlider) {
-                imageSlider.destroy(); // Destroy the Splide instance if it exists
-                imageSlider = null; // Reset imageSlider variable
+                imageSlider.destroy(); 
+                imageSlider = null; 
             }
         }
     });
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         type: 'loop',
         perPage: 1,
         autoplay: true,
-    }).mount(); // Mount the Splide instance immediately
+    }).mount(); 
     console.log("After Splide initialization");
 
     document.getElementById('help').addEventListener('click', function() {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 function initialize() {
-    // Event listener for main board input
+    
     document.addEventListener("keyup", (e) => {
         if (gameover) return;
 
@@ -92,22 +92,22 @@ function initialize() {
 
 async function handleBoardInput(e) {
     let keyPressed = e.key.toUpperCase();
-    console.log("Key Pressed:", keyPressed); // Log the key pressed
+    console.log("Key Pressed:", keyPressed); 
 
     if (e.key.length === 1 && keyPressed >= 'A' && keyPressed <= 'Z') {
-        // Handling letter keys for the main board
+        
         if (row < height && col < width) {
             let currTile = document.getElementById(row.toString() + '-' + col.toString());
             if (currTile && currTile.innerText == "") {
                 currTile.innerText = keyPressed;
                 word_stack.push(keyPressed);
                 col += 1;
-                animateTile(currTile); // Add animation to the tile
+                animateTile(currTile); 
             }
         }
         console.log("Current word stack:", word_stack);
     } else if (e.key === "Backspace") {
-        e.preventDefault(); // Prevents the default behavior of backspace (navigating back in the browser)
+        e.preventDefault(); 
         if (col > 0) {
             col -= 1;
             let currTile = document.getElementById(row.toString() + "-" + col.toString());
@@ -116,7 +116,7 @@ async function handleBoardInput(e) {
         }
         console.log("Current word stack after backspace:", word_stack);
     } else if (e.key === "Enter" && col > 0 && col % 5 == 0) {
-        e.preventDefault(); // Prevents the default behavior of enter (form submission, etc.)
+        e.preventDefault(); 
         console.log("Enter pressed. Current word stack:", word_stack);
         if (word_stack.length === 5) {
             let userword=word_stack.join("");
@@ -126,13 +126,13 @@ async function handleBoardInput(e) {
                 hint = CheckLogic(word_stack.join(''), word);
                 console.log("Hint:", hint);
                 document.getElementById(row.toString() + '-hint').innerText = hint;
-                document.getElementById(row.toString() + '-hint').classList.add('animate-hint'); // Add animation class
-                setTimeout(() => document.getElementById(row.toString() + '-hint').classList.remove('animate-hint'), 1000); // Remove animation class after animation completes
+                document.getElementById(row.toString() + '-hint').classList.add('animate-hint'); 
+                setTimeout(() => document.getElementById(row.toString() + '-hint').classList.remove('animate-hint'), 1000);
                 word_stack = [];
                 row += 1;
                 col = 0;
                 if (row < height) {
-                    addColumns(); // Execute addColumns when "Enter" key is pressed and col is a multiple of 5
+                    addColumns(); 
                 } else {
                     gameOver();
                 }
@@ -145,8 +145,8 @@ async function handleBoardInput(e) {
 
     }
 
-    console.log("Row:", row); // Log the current row
-    console.log("Column:", col); // Log the current column
+    console.log("Row:", row); 
+    console.log("Column:", col); 
 }
 
 async function checkWordValidity(u_word) {
@@ -180,7 +180,7 @@ function handleDashInput(e) {
             dashword[index] = keyPressed;
             if (dashword[index] == word[index]) {
                 focusedDash.innerText = keyPressed;
-                animateDash(focusedDash); // Add animation to the dash
+                animateDash(focusedDash); 
                 console.log("Dashword:", dashword);
                 checkdashwin(dashword.join(''), word);
             } else {
@@ -189,12 +189,12 @@ function handleDashInput(e) {
             }
         }
     }
-    e.target.value = ""; // Clear the input
+    e.target.value = ""; 
 }
 
 function handleDashBackspace(e) {
     if (e.key === "Backspace") {
-        e.preventDefault(); // Prevent default behavior of Backspace
+        e.preventDefault(); 
         const focusedDash = document.querySelector(".dash.focused");
         if (focusedDash) {
             const index = focusedDash.dataset.index;
@@ -215,20 +215,18 @@ function focusInput(dashElement) {
 function addColumns() {
     const board = document.getElementById("board");
 
-    // Create a new row div
     const rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
-    rowDiv.classList.add("animate-row"); // Add the animation class
+    rowDiv.classList.add("animate-row"); 
 
     for (let c = 0; c < width; c++) {
         const tile = document.createElement("span");
         tile.classList.add("tile");
         tile.innerText = "";
-        tile.id = row.toString() + '-' + c.toString(); // Assigning ID
+        tile.id = row.toString() + '-' + c.toString(); 
         rowDiv.appendChild(tile);
     }
 
-    // Add a span for the hint at the end of the row
     const hintSpan = document.createElement("span");
     hintSpan.classList.add("hint");
     hintSpan.id = row.toString() + '-hint';
@@ -274,8 +272,8 @@ function wrongdash() {
     const circles = document.querySelectorAll(".error-circle");
     if (w_dash < circles.length) {
         circles[w_dash].style.backgroundColor = "red";
-        circles[w_dash].classList.add('animate-circle'); // Add animation class
-        setTimeout(() => circles[w_dash].classList.remove('animate-circle'), 500); // Remove animation class after animation completes
+        circles[w_dash].classList.add('animate-circle');
+        setTimeout(() => circles[w_dash].classList.remove('animate-circle'), 500); 
         w_dash++;
     }
 }
@@ -293,8 +291,7 @@ function GameWin() {
     winMessage.classList.remove("hidden");
     winMessage.classList.add("animate-win");
 
-    // Confetti effect
-    var duration = 5 * 1000; // Duration of confetti in milliseconds
+    var duration = 5 * 1000; 
     var end = Date.now() + duration;
 
     (function frame() {
@@ -323,7 +320,6 @@ function gameOver() {
     document.getElementById("game-over-popup").classList.remove("hidden");
 }
 
-// Ensure this function is available for the game over scenario
 function resetGame() {
     gameover = false;
     row = 0;
@@ -336,7 +332,7 @@ function resetGame() {
 
 function animateTile(tile) {
     tile.classList.add('animate-tile');
-    setTimeout(() => tile.classList.remove('animate-tile'), 300); // Remove animation class after animation completes
+    setTimeout(() => tile.classList.remove('animate-tile'), 300); 
 }
 
 function animateDash(dash) {
